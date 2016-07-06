@@ -10,6 +10,11 @@ function campoMinado(param){
         return "1*\n11\n00"
 }
 
+function preencheEspaco(param) {
+    // input: *-
+    // output: *1
+    return param.replace("-", "1")
+}
 //Descreva e teste
 //Para testar, execute: mocha
 describe('campoMinado("*-")', function(){
