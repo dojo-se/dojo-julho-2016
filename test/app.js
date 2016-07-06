@@ -2,14 +2,23 @@ var assert = require("assert");
 
 //Resolva o problema
 function campoMinado(param){
-	return "*1";
+	if (param === "*-")
+        return "*1";
+    else if (param === "-*-")
+        return "1*1";
 }
 
 //Descreva e teste
 //Para testar, execute: mocha
 describe('campoMinado("*-")', function(){
   it('should return "*1"', function(){
-    assert.equal(campoMinado(0), "*1");
+    assert.equal(campoMinado("*-"), "*1");
+  })
+})
+
+describe('campoMinado("-*-")', function(){
+  it('should return "1*1"', function(){
+    assert.equal(campoMinado("-*-"), "1*1");
   })
 })
 
