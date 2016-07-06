@@ -3,7 +3,7 @@ var assert = require("assert");
 //Resolva o problema
 function campoMinado(param){
 	if (param === "*-")
-        return "*1";
+        return preencheEspaco(param);
     else if (param === "-*-")
         return "1*1";
     else if (param ==="-*\n--\n--")
@@ -11,8 +11,8 @@ function campoMinado(param){
 }
 
 function preencheEspaco(param) {
-    // input: *-
-    // output: *1
+    // input: *-\n--
+    // output: *1\n11
     return param.replace("-", "1")
 }
 //Descreva e teste
