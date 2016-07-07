@@ -2,27 +2,65 @@ var assert = require("assert");
 
 //Resolva o problema
 function campoMinado(param){
-	if (param === "*-")
+	if (param === "*-" || param === "-*-")
         return preencheEspaco(param);
-    else if (param === "-*-")
-        return "1*1";
     else if (param ==="-*\n--\n--")
-        return "1*\n11\n00"
+        return "1*\n11\n00";
 }
 
 function preencheEspaco(param) {
     // input:  *-
     // output: *1
-    var arr = param.split('');
-    var i = 0;
-    var counter = 0;
-    for (i; i < param.length - 1; i++) {
-        var cur = arr[i];
-        if (cur == "*") {
-            arr[i+1] = '1';
+    var param = param.replace("-", "0")
+    var linhas = param.split('\n');   
+
+    for (var i = 0; i < linhas.length; i++) {
+        var linha = linhas[i].split('');
+        for (var i=0; i < linha.length; i++)
+            if (linha[i] === '-') linha[i] = 0
+
+        linhas[i] = linha;
+
+        for (var j = 0; j < linha.length; j++) {
+            var caractere = linha[j];
+            if (caractere === "*") {
+                atualizarVizinhos(i, j, linhas);
+            }
         }
     }
-    return arr.join('')
+
+    for (var i = 0; i < linhas.length; i++) {
+        linhas[i] = linhas[i].join('');
+    }
+
+    return linhas.join('\n');
+
+    function atualizarVizinhos(linha, coluna, matriz) {
+        if (linha !== 0) {
+            matriz[linha-1][coluna]++;
+            if (coluna !== 0) {
+                matriz[linha-1][coluna-1]++;
+            }
+            if (coluna + 1 !== matriz[linha].length){
+                matriz[linha-1][coluna+1]++;
+            }
+        }
+
+        if (linha + 1 !== matriz.length) {
+            matriz[linha + 1][coluna]++;
+            
+            if (coluna !== 0) {
+                matriz[linha+1][coluna-1]++;
+            }
+            if (coluna + 1 !== matriz[linha].length) {
+                matriz[linha+1][coluna+1]++;
+            }
+        }
+        
+        matriz[linha][coluna-1]++;
+        matriz[linha][coluna+1]++;
+    }
+
 }
 //Descreva e teste
 //Para testar, execute: mocha
