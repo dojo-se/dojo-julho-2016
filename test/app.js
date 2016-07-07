@@ -11,9 +11,18 @@ function campoMinado(param){
 }
 
 function preencheEspaco(param) {
-    // input: *-\n--
-    // output: *1\n11
-    return param.replace("-", "1")
+    // input:  *-
+    // output: *1
+    var arr = param.split('');
+    var i = 0;
+    var counter = 0;
+    for (i; i < param.length - 1; i++) {
+        var cur = arr[i];
+        if (cur == "*") {
+            arr[i+1] = '1';
+        }
+    }
+    return arr.join('')
 }
 //Descreva e teste
 //Para testar, execute: mocha
